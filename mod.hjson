@@ -1,0 +1,23 @@
+#the mod name as displayed in-game
+displayName: "TianLu Heavy industry"
+
+#the internal name of your mod
+name: "20120623tianlu"
+
+#your name
+author: "超可爱的天禄"
+
+#the fully qualified main class of the mod
+main: "mod.Tianlu"
+
+#the mod description as seen in the mod dialog
+description: "天禄重工业"
+
+#the mod version
+version: 0.1
+
+#the minimum game build required to run this mod
+minGameVersion: 155
+
+#this is a java mod
+java: true
