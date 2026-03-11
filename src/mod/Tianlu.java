@@ -5,10 +5,7 @@ import arc.util.Time;
 import mindustry.game.EventType;
 import mindustry.mod.Mod;
 import mindustry.ui.dialogs.BaseDialog;
-import mod.content.TianluItems;
-import mod.content.TianluBlocks;
-import mod.content.TianluNatural_StarTechTree;
-import mod.content.TianluPlanets;
+import mod.content.*;
 
 public class Tianlu extends Mod {
     public Tianlu() {
@@ -27,5 +24,6 @@ public class Tianlu extends Mod {
         TianluBlocks.load();
         TianluPlanets.load();
         TianluNatural_StarTechTree.load();
+        TianluUnitType.load();
     }
 }

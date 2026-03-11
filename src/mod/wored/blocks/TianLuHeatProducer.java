@@ -62,8 +62,28 @@ public class TianLuHeatProducer extends GenericCrafter{
 
             Item item = items.first();
             if (item != null) {
-                float flammability = item.flammability;
-                heat = heatmax(heat, heatOutput * flammability, fps * flammability);
+                if (Attribute_Efficiency) {
+                    if (Custom_attribute == 1) {
+                        float itemAttribute = item.explosiveness;
+                        heat = heatmax(heat, heatOutput * itemAttribute, fps * itemAttribute);
+                    } if (Custom_attribute == 2) {
+                        float itemAttribute = item.flammability;
+                        heat = heatmax(heat, heatOutput * itemAttribute, fps * itemAttribute);
+                    } if (Custom_attribute == 3) {
+                        float itemAttribute = item.radioactivity;
+                        heat = heatmax(heat, heatOutput * itemAttribute, fps * itemAttribute);
+                    } if (Custom_attribute == 4) {
+                        float itemAttribute = item.charge;
+                        heat = heatmax(heat, heatOutput * itemAttribute, fps * itemAttribute);
+                    } if (Custom_attribute == 5) {
+                        float itemAttribute = item.hardness;
+                        heat = heatmax(heat, heatOutput * itemAttribute, fps * itemAttribute);
+                    } if (Custom_attribute > 5 || Custom_attribute < 1) {
+                        heat = heatmax(heat, heatOutput, fps);
+                    }
+                } if (!Attribute_Efficiency) {
+                    heat = heatmax(heat, heatOutput, fps);
+                }
             }
             if (item == null) {
                 heat = 0f;

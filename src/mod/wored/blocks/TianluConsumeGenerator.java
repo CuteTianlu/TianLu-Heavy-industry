@@ -15,7 +15,7 @@ import mindustry.world.consumers.*;
 import mindustry.world.meta.*;
 
 /** A generator that just takes in certain items or liquids. */
-public class TianLuGenericCrafter extends TianluPowerGenerator {
+public class TianluConsumeGenerator extends TianluPowerGenerator {
     /** The time in number of ticks during which a single item will produce power. */
     public float itemDuration = 120f;
 
@@ -34,7 +34,7 @@ public class TianLuGenericCrafter extends TianluPowerGenerator {
     /** Multiplies the itemDuration for a given item. */
     public ObjectFloatMap<Item> itemDurationMultipliers = new ObjectFloatMap<>();
 
-    public TianLuGenericCrafter(String name){
+    public TianluConsumeGenerator(String name){
         super(name);
     }
 

@@ -13,6 +13,7 @@ import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.power.ConsumeGenerator;
 import mindustry.world.blocks.production.Drill;
@@ -23,13 +24,13 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.DrawTurret;
 import mindustry.world.meta.Env;
 import mod.wored.blocks.TianLuHeatProducer;
-import mod.wored.blocks.TianLuItemTurretadd;
 
 import static mindustry.type.Category.*;
 import static mindustry.type.ItemStack.with;
 
 public class TianluBlocks {
     public static Block //注册方块
+        Electric_Silicon_Furnace,//电硅炉
         Copper_Lead_Alloy_Mixer,//铜铅合金混合机
         Tungsten_Steel_Refining_Furnace,//钨钢精炼炉
         High_Temperature_Press_Machine, //高温压片机
@@ -38,11 +39,28 @@ public class TianluBlocks {
         Steam_gener_Generator,//蒸汽发电机
         Copper_lead_alloy_Drill_bit,//铜铅合金钻头
         Beginner_Core,//初级核心
-        Suppress,
+        Suppress,//压制
+        Copper_Lead_Alloy_Conveyor,//铜铅合金传送带
         iron;//铁
     public static void load(){//建筑
+        //电硅炉
+        Electric_Silicon_Furnace = new GenericCrafter("Electric_Silicon_Furnace") {{
+            requirements(crafting, with(Items.copper, 50, Items.lead, 30));
+            description = "就是不需要煤炭的硅";
+            health = 600;
+            size = 2;
+            hasPower = true;
+            hasItems = true;
+            hasLiquids = false;
+            itemCapacity = 20;
+            craftTime = 30f;
+            consumeItems(with(Items.sand, 2));
+            consumePower(1f);
+            outputItem = new ItemStack(Items.silicon, 1);
+            researchCost = with(Items.copper, 150, Items.lead, 80);
+        }};
         //生产-工厂
-        Copper_Lead_Alloy_Mixer = new GenericCrafter("copper_lead_alloy_mixer") {{
+        Copper_Lead_Alloy_Mixer = new GenericCrafter("Copper_Lead_Alloy_Mixer") {{
             description = "制作铜铅合金但是他里面是个熔炉\nPS: 搅拌加热获得美食";
             requirements(crafting, with(Items.copper, 35,Items.lead, 25));
             outputItem = new ItemStack(TianluItems.Copper_lead_alloy, 3);
@@ -50,7 +68,8 @@ public class TianluBlocks {
             hasItems = true;
             craftTime = 240f;
             size = 2;
-            liquidCapacity = 60f;
+            itemCapacity = 20;
+            researchCost = with(Items.copper, 40, Items.lead, 30);
         }};
         High_Temperature_Press_Machine = new GenericCrafter("High_Temperature_Press_Machine") {{
             requirements(crafting, with(Items.tungsten, 60, Items.thorium, 50, Items.silicon, 25, TianluItems.Tungsten_Steel, 120));
@@ -63,8 +82,7 @@ public class TianluBlocks {
             hasItems = true;
             craftTime = 240f;
             size = 2;
-            alwaysUnlocked = false;
-            liquidCapacity = 60f;
+            itemCapacity = 20;
         }};
         Tungsten_Steel_Refining_Furnace = new HeatCrafter("Tungsten_Steel_Refining_Furnace") {{
             requirements(crafting, with(Items.tungsten, 50, Items.thorium, 80, Items.silicon, 25));
@@ -77,14 +95,15 @@ public class TianluBlocks {
             hasItems = true;
             craftTime = 240f;
             size = 3;
-            alwaysUnlocked = false;
             heatRequirement = 18f;
-            liquidCapacity = 60f;
+            itemCapacity = 20;
         }};
         //生产-工厂-热力
         Combustion_Heat_Generator = new TianLuHeatProducer("Combustion_Heat_Generator") {{
             requirements(crafting, with(Items.copper, 50, Items.titanium, 25, Items.graphite, 35));
             description = "把能烧的全扔进去\n恭喜你没燃料了";
+            Attribute_Efficiency = true;//是否根据物品部分属性修改效率 true开启  false关闭
+            Custom_attribute = 2;//1爆炸性2燃烧性3放射性4放电性5硬度 >5或者<1或者Attribute_Efficiency=false不会根据属性修改输出
             heatOutput = 5f;
             craftEffect = Fx.smeltsmoke;
             hasItems = true;
@@ -124,26 +143,28 @@ public class TianluBlocks {
             description = "基础的小型核心";
             alwaysUnlocked = true;
         }};
-        Suppress = new TianLuItemTurretadd("Suppress") {{
+        Suppress = new ItemTurret("Suppress") {{
+            requirements(turret, with(TianluItems.Copper_lead_alloy, 120, Items.copper, 80));
+            description = "强大的T1炮台但是精度较差但是如果遇到防御力较高的单位难以穿透";
             health = 80;
             size = 2;
-            reload = 2.2f;//子弹发射间隔
+            reload = 1.8f;//子弹发射间隔
             range = 240f;//自动攻击范围(10=1格)
             maxAmmo = 45;//最大弹药数
             recoilTime = 5f;//后坐力恢复时间
             recoil = 1;//后坐力
             shoot = new ShootAlternate(3.5f);
-            ammoPerShot = 20;
             shootSound = Sounds.shootDuo;
             targetGround = true;
             targetAir = true;
             hasItems = false;
-            inaccuracy = 5f;
+            inaccuracy = 6.8f;
             shake = 1f;
+            ammoPerShot = 1;
+            researchCost = with(TianluItems.Copper_lead_alloy, 180, Items.copper, 100);
             ammo(
                 TianluItems.iron, new BasicBulletType(40f/*子弹速度*/, 15){{
-                    requirements(Category.turret, with(TianluItems.iron, 1));
-                    ammoPerShot = 2;
+                    ammoMultiplier = 12;
                     width = 5f;
                     height = 4f;
                     shoot = new ShootPattern();
@@ -152,8 +173,7 @@ public class TianluBlocks {
                     }};
                 }},
                 TianluItems.Steel, new BasicBulletType(40f/*子弹速度*/, 30){{
-                    requirements(Category.turret, with(TianluItems.iron, 1));
-                    ammoPerShot = 3;
+                    ammoMultiplier = 12;
                     width = 5f;
                     height = 4f;
                     shoot = new ShootPattern();
@@ -162,12 +182,11 @@ public class TianluBlocks {
                     }};
                 }},
                 TianluItems.Copper_lead_alloy, new BasicBulletType(40f/*子弹速度*/, 13){{
-                    requirements(Category.turret, with(TianluItems.Copper_lead_alloy, 1));
+                    ammoMultiplier = 12;
                     splashDamage = 8f;
                     splashDamageRadius = 12f;
                     splashDamagePierce = false;
                     knockback = 0f;
-                    ammoPerShot = 4;
                     width = 5f;
                     height = 4f;
                     shoot = new ShootPattern();
@@ -175,10 +194,8 @@ public class TianluBlocks {
                         lifetime = 6f;//子弹存在时间  子弹存在时间×子弹速度÷10大约等于子弹飞行多少格
                     }};
                 }},
-                Items.silicon, new BasicBulletType(45f/*子弹速度*/, 30){{
-                    requirements(Category.turret, with(Items.silicon, 1));
-                    ammoMultiplier = 9;
-                    ammoPerShot = 8;
+                Items.silicon, new BasicBulletType(45f/*子弹速度*/, 23){{
+                    ammoMultiplier = 12;
                     width = 5f;
                     height = 4f;
                     homingPower = 12f;
@@ -189,6 +206,13 @@ public class TianluBlocks {
                     }};
                 }}
             );
+        }};
+        Copper_Lead_Alloy_Conveyor = new Conveyor("Copper_Lead_Alloy_Conveyor") {{
+            requirements(distribution, with(TianluItems.Copper_lead_alloy, 1));
+            health = 32;
+            speed = 0.045f;
+            displayedSpeed = 6.5f;
+            researchCost = with(TianluItems.Copper_lead_alloy, 35);
         }};
         //地形
         iron = new OreBlock("iron") {{
