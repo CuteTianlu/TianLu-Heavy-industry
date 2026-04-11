@@ -226,7 +226,7 @@ public class TianluBlocks {
             researchCost = with(Copper_lead_alloy, 180, copper, 100);
             ammo(
                 iron, new BasicBulletType(40f/*子弹速度*/, 15) {{
-                    ammoMultiplier = 12;
+                    ammoMultiplier = 6;
                     width = 5f;
                     height = 4f;
                     shoot = new ShootPattern();
@@ -235,7 +235,7 @@ public class TianluBlocks {
                     }};
                 }},
                 Steel, new BasicBulletType(40f/*子弹速度*/, 30){{
-                    ammoMultiplier = 12;
+                    ammoMultiplier = 5;
                     width = 5f;
                     height = 4f;
                     shoot = new ShootPattern();
@@ -244,7 +244,7 @@ public class TianluBlocks {
                     }};
                 }},
                 Copper_lead_alloy, new BasicBulletType(40f/*子弹速度*/, 13) {{
-                    ammoMultiplier = 12;
+                    ammoMultiplier = 7;
                     splashDamage = 8f;
                     splashDamageRadius = 12f;
                     splashDamagePierce = false;
@@ -257,7 +257,7 @@ public class TianluBlocks {
                     }};
                 }},
                 silicon, new BasicBulletType(45f/*子弹速度*/, 23) {{
-                    ammoMultiplier = 12;
+                    ammoMultiplier = 8;
                     width = 5f;
                     height = 4f;
                     homingPower = 12f;
