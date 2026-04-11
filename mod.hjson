@@ -14,7 +14,7 @@ main: "mod.Tianlu"
 description: "天禄重工业"
 
 #the mod version
-version: 0.1
+version: 0.1.0.1.1
 
 #the minimum game build required to run this mod
 minGameVersion: 155
