@@ -58,8 +58,7 @@ public class TianLuThermalEnergyExtraction extends PowerGenerator {
         stats.add(Stat.tiles, attribute, floating, size * size * displayEfficiencyScale, !displayEfficiency);
         stats.remove(generationType);
         stats.add(generationType, PowerOutput * 60.0f / displayEfficiencyScale, StatUnit.powerSecond);
-        stats.remove(TianLuStat.tianluheatoutpu);
-        stats.add(TianLuStat.tianluheatoutpu, heatOutput + " × 效率", StatUnit.heatUnits);
+        stats.add(Stat.output, heatOutput + " × 效率", StatUnit.heatUnits);
 
         if(outputLiquid != null){
             stats.add(Stat.output, StatValues.liquid(outputLiquid.liquid, outputLiquid.amount * size * size * 60f, true));
