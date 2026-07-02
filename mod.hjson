@@ -1,5 +1,5 @@
 #the mod name as displayed in-game
-displayName: "TianLu Heavy industry"
+displayName: "Ordin Heavy"
 
 #the internal name of your mod
 name: "20120623tianlu"
@@ -11,7 +11,7 @@ author: "超可爱的天禄"
 main: "mod.Tianlu"
 
 #the mod description as seen in the mod dialog
-description: "天禄重工业"
+description: "普普通通的重工业"
 
 #the mod version
 version: 0.1.0.1.1
